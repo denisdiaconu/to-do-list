@@ -9,9 +9,6 @@
 - CSS
 
 
-## Live link
-
-[Clickme]().
 
 ## Getting Started
 
