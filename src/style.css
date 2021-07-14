@@ -2,12 +2,13 @@
   margin: 0;
   padding: 0;
 }
+
 .hello {
-    color: red;
-  }
+  color: red;
+}
 
 body {
-    background-color: #fff;
+  background-color: #fff;
 }
 
 #toDoContainer {
@@ -47,6 +48,19 @@ li {
   margin-left: 10px;
 }
 
+ul > li > div {
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  height: 100%;
+  align-items: center;
+}
+
+ul > li > div > button {
+  background-color: transparent;
+  border: none;
+  color: #ecdede;
+}
+
 #inputContainer > button {
   height: 100%;
   border-style: none;
@@ -59,7 +73,7 @@ li {
 }
 
 #toDoContainer > div {
- height: 50px;
+  height: 50px;
 }
 
 ul {
@@ -72,19 +86,6 @@ ul > li {
   background-color: #fff;
   height: 50px;
   width: 100%;
-}
-
-ul > li > div {
-  display: grid;
-  grid-template-columns: 10% 80% 10%;
-  height: 100%;
-  align-items: center;
-}
-
-ul > li > div > button {
-  background-color: transparent;
-  border: none;
-  color: #ecdede;
 }
 
 #last_button {
