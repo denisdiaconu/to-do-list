@@ -1,7 +1,11 @@
 import './style.css';
-
+import {
+  draghandler,dragoverhandler,drophandler,dragstarthandler,
+} from './draganddrop.js';
+import {
+  checkboxtest,
+} from './checkbox.js'
 const toDoList = document.querySelector('#toDoList');
-let selectedIndex;
 
 if (!localStorage.getItem('todo')) {
   localStorage.setItem('todo', JSON.stringify([
@@ -22,7 +26,7 @@ if (!localStorage.getItem('todo')) {
     },
   ]));
 }
-const handleGetData = () => {
+export const handleGetData = () => {
   const list = localStorage.getItem('todo');
   if (list) {
     return JSON.parse(list);
@@ -30,24 +34,7 @@ const handleGetData = () => {
   return [];
 };
 
-const draghandler = ({ i }) => {
-  selectedIndex = i;
-};
-const dragoverhandler = (ev) => {
-  ev.preventDefault();
-};
-const drophandler = ({ i }) => {
-  const list = handleGetData();
-  const tmp = list[selectedIndex];
-  list[selectedIndex] = list[i];
-  list[i] = tmp;
-  localStorage.setItem('todo', JSON.stringify(list));
-  window.location.reload();
-};
-const dragstarthandler = () => {
-
-};
-const list = handleGetData();
+export const list = handleGetData();
 for (let i = 0; i < list.length; i += 1) {
   const li = document.createElement('li');
   li.draggable = true;
@@ -76,14 +63,4 @@ for (let i = 0; i < list.length; i += 1) {
       </div>`;
   toDoList.appendChild(li);
 }
-const checkboxs = document.querySelectorAll('.checkboxes');
-checkboxs.forEach((checkbox) => {
-  checkbox.addEventListener('change', (e) => {
-    if (list[e.target.id].completed === true) {
-      list[e.target.id].completed = false;
-    } else {
-      list[e.target.id].completed = true;
-    }
-    localStorage.setItem('todo', JSON.stringify(list));
-  });
-});
+checkboxtest();
