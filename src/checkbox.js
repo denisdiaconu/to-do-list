@@ -1,9 +1,7 @@
-import {
-  list,
-} from './index.js';
+import handleGetData from './localstorage.js';
 
-export const checkboxtest = () => {
-
+const checkboxtest = () => {
+  const list = handleGetData();
   const checkboxs = document.querySelectorAll('.checkboxes');
   checkboxs.forEach((checkbox) => {
     checkbox.addEventListener('change', (e) => {
@@ -16,3 +14,4 @@ export const checkboxtest = () => {
     });
   });
 };
+export default checkboxtest;

@@ -1,6 +1,4 @@
-import {
-  handleGetData,
-} from './index.js';
+import handleGetData from './localstorage.js';
 
 let selectedIndex;
 export const draghandler = ({ i }) => {
@@ -18,5 +16,4 @@ export const drophandler = ({ i }) => {
   window.location.reload();
 };
 export const dragstarthandler = () => {
-
 };

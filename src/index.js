@@ -1,12 +1,11 @@
 import './style.css';
 import {
-  draghandler,dragoverhandler,drophandler,dragstarthandler,
+  draghandler, dragoverhandler, drophandler, dragstarthandler,
 } from './draganddrop.js';
-import {
-  checkboxtest,
-} from './checkbox.js'
-const toDoList = document.querySelector('#toDoList');
+import checkboxtest from './checkbox.js';
+import handleGetData from './localstorage.js';
 
+const toDoList = document.querySelector('#toDoList');
 if (!localStorage.getItem('todo')) {
   localStorage.setItem('todo', JSON.stringify([
     {
@@ -26,15 +25,7 @@ if (!localStorage.getItem('todo')) {
     },
   ]));
 }
-export const handleGetData = () => {
-  const list = localStorage.getItem('todo');
-  if (list) {
-    return JSON.parse(list);
-  }
-  return [];
-};
-
-export const list = handleGetData();
+const list = handleGetData();
 for (let i = 0; i < list.length; i += 1) {
   const li = document.createElement('li');
   li.draggable = true;
