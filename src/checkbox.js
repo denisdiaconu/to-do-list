@@ -1,7 +1,7 @@
-import handleGetData from './localstorage.js';
+import getList from './localstorage.js';
 
 const checkboxtest = () => {
-  const list = handleGetData();
+  const list = getList();
   const checkboxs = document.querySelectorAll('.checkboxes');
   checkboxs.forEach((checkbox) => {
     checkbox.addEventListener('change', (e) => {

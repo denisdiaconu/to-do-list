@@ -3,29 +3,13 @@ import {
   draghandler, dragoverhandler, drophandler, dragstarthandler,
 } from './draganddrop.js';
 import checkboxtest from './checkbox.js';
-import handleGetData from './localstorage.js';
+import { getList, setData } from './localstorage.js';
+import getFormInput from './helpermethod.js';
 
+getFormInput();
+setData();
 const toDoList = document.querySelector('#toDoList');
-if (!localStorage.getItem('todo')) {
-  localStorage.setItem('todo', JSON.stringify([
-    {
-      description: 'have fun',
-      completed: false,
-      id: 1,
-    },
-    {
-      description: 'study a lot',
-      completed: false,
-      id: 2,
-    },
-    {
-      description: 'learn more',
-      completed: false,
-      id: 3,
-    },
-  ]));
-}
-const list = handleGetData();
+const list = getList();
 for (let i = 0; i < list.length; i += 1) {
   const li = document.createElement('li');
   li.draggable = true;
