@@ -4,11 +4,12 @@ import {
 } from './localstorage.js';
 
 import {
-  addToDom, addEventToEdit, addEventToRemove, addEventToSave, addEventCheckbox,
+  addToDom, addEventToEdit, addEventToRemove, addEventToSave, addEventCheckbox, clearAll,
+  displayAll,
 } from './dom.js';
 
 setLocalStorage();
-
+displayAll();
 const AddToDo = document.querySelector('.AddToDo');
 AddToDo.addEventListener('click', () => {
   const toDoInput = document.querySelector('.toDoInput');
@@ -28,5 +29,6 @@ AddToDo.addEventListener('click', () => {
   addEventToEdit();
   addEventToRemove();
   addEventToSave();
+  clearAll();
   toDoInput.value = '';
 });

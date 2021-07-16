@@ -12,9 +12,9 @@ export const checkOrNot = (completed) => {
 
 export const addEventCheckbox = () => {
   const checkboxs = document.querySelectorAll('.checkboxes');
+  const list = getList();
   checkboxs.forEach((checkbox) => {
     checkbox.addEventListener('click', (e) => {
-      const list = getList();
       const target = e.target.classList[0];
       if (list[target].completed === true) {
         list[target].completed = false;
@@ -73,13 +73,35 @@ export const addToDom = (obj) => {
   const toDoList = document.querySelector('#toDoList');
   const li = document.createElement('li');
   li.innerHTML = `
-      <div>
-          <input class="${obj.id} checkboxes" type="checkbox" ${checkOrNot(obj.completed)}>
-          <input type='text' id =${obj.id} value=${obj.description} disabled>
-          <button class='${obj.id} edit'>edit</button>
-          <button class='${obj.id} remove'>remove</button>
-          <button class='${obj.id} save'>save</button>
-      </div>
-      `;
+        <div>
+            <input class="${obj.id} checkboxes" type="checkbox" ${checkOrNot(obj.completed)}>
+            <input type="text" id ="${obj.id}" value=${obj.description} disabled>
+            <button class="${obj.id} edit">edit</button>
+            <button class="${obj.id} remove">remove</button>
+            <button class="${obj.id} save">save</button>
+        </div>
+        `;
   toDoList.appendChild(li);
+};
+
+export const clearAll = () => {
+  const clearCheckedBtn = document.getElementById('clearChecked');
+  clearCheckedBtn.addEventListener('click', () => {
+    const list = getList();
+    const newList = list.filter((todo) => todo.completed !== true);
+    updateList(newList);
+    window.location.reload();
+  });
+};
+
+export const displayAll = () => {
+  const list = getList();
+  list.forEach((obj) => {
+    addToDom(obj);
+    addEventCheckbox();
+    addEventToEdit();
+    addEventToRemove();
+    addEventToSave();
+    clearAll();
+  });
 };
