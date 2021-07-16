@@ -50,7 +50,7 @@ li {
 
 ul > li > div {
   display: grid;
-  grid-template-columns: 10% 80% 10%;
+  grid-template-columns: 10% 60% 10% 10% 10%;
   height: 100%;
   align-items: center;
 }
@@ -99,4 +99,17 @@ ul > li {
 
 #last_button:hover {
   cursor: pointer;
+}
+
+.edit {
+  color: #9c9c9c;
+}
+
+.remove {
+  color: #9c9c9c;
+}
+
+.save {
+  color: #9c9c9c;
+  text-transform: capitalize;
 }
