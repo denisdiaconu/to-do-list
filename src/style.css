@@ -61,6 +61,10 @@ ul > li > div > button {
   font-weight: bold;
 }
 
+#toDoList > li > button {
+  border: none;
+}
+
 #inputContainer > button:hover {
   cursor: pointer;
 }
@@ -123,10 +127,6 @@ ul > li {
   display: grid;
   grid-template-columns: 10% 60% 10% 10% 10%;
   align-items: center;
-}
-
-#toDoList > li > button {
-  border: none;
 }
 
 #toDoList > li > button:hover {
