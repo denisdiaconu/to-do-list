@@ -2,88 +2,74 @@ import {
   getList, updateList,
 } from './localstorage.js';
 
-export const checkOrNot = (completed) => {
-  let checker = '';
-  if (completed === true) {
-    checker = 'checked';
-  }
-  return checker;
-};
-
-export const addEventCheckbox = () => {
-  const checkboxs = document.querySelectorAll('.checkboxes');
+export const checkboxfun = (e) => {
   const list = getList();
-  checkboxs.forEach((checkbox) => {
-    checkbox.addEventListener('click', (e) => {
-      const target = e.target.classList[0];
-      if (list[target].completed === true) {
-        list[target].completed = false;
-      } else {
-        list[target].completed = true;
-      }
-      updateList(list);
-    });
+  const id = e.target.classList[0];
+  list.forEach((object) => {
+    if (String(object.id) === String(id)) {
+      object.completed = !object.completed;
+    }
   });
+  updateList(list);
 };
-
-export const addEventToSave = () => {
-  const saveButtons = document.querySelectorAll('.save');
-  saveButtons.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const target = e.target.classList[0];
-      const inputField = document.getElementById(target);
-      const saveInput = inputField.value;
-      const list = getList();
-      list.forEach((todo) => {
-        if (todo.id.toString() === target.toString()) {
-          todo.description = saveInput;
-        }
-      });
-      updateList(list);
-      inputField.disabled = true;
-    });
-  });
-};
-
-export const addEventToEdit = () => {
-  const editButtons = document.querySelectorAll('.edit');
-  editButtons.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      const target = e.target.classList[0];
-      const targetinput = document.getElementById(target);
-      targetinput.disabled = false;
-    });
-  });
-};
-
-export const addEventToRemove = () => {
-  const removeButtons = document.querySelectorAll('.remove');
-  removeButtons.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      e.target.parentElement.parentElement.remove();
-      const list = getList();
-      const target = e.target.classList[0];
-      const newList = list.filter((todo) => todo.id.toString() !== target.toString());
-      updateList(newList);
-    });
-  });
-};
-
 export const addToDom = (obj) => {
   const toDoList = document.querySelector('#toDoList');
   const li = document.createElement('li');
-  li.innerHTML = `
-        <div>
-            <input class="${obj.id} checkboxes" type="checkbox" ${checkOrNot(obj.completed)}>
-            <input type="text" id ="${obj.id}" value=${obj.description} disabled>
-            <button class="${obj.id} edit">edit</button>
-            <button class="${obj.id} remove">remove</button>
-            <button class="${obj.id} save">save</button>
-        </div>
-        `;
+  const inputField = document.createElement('input');
+  inputField.type = 'text';
+  inputField.id = obj.id;
+  inputField.value = obj.description;
+  inputField.disabled = true;
+  if (obj.completed === true) {
+    inputField.checked = true;
+  }
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.classList.add(obj.id);
+  checkbox.addEventListener('click', (e) => {
+    checkboxfun(e);
+  });
+  const edit = document.createElement('button');
+  edit.classList.add(obj.id);
+  edit.textContent = 'edit';
+  edit.addEventListener('click', (e) => {
+    const target = e.target.classList[0];
+    const targetinput = document.getElementById(target);
+    targetinput.disabled = false;
+  });
+  const remove = document.createElement('button');
+  remove.classList.add(obj.id);
+  remove.textContent = 'remove';
+  remove.addEventListener('click', (e) => {
+    e.target.parentElement.remove();
+    const list = getList();
+    const target = e.target.classList[0];
+    const newList = list.filter((todo) => todo.id.toString() !== target.toString());
+    updateList(newList);
+  });
+  const save = document.createElement('button');
+  save.classList.add(obj.id);
+  save.textContent = 'save';
+  save.addEventListener('click', (e) => {
+    const target = e.target.classList[0];
+    const inputField = document.getElementById(target);
+    const newValue = inputField.value;
+    const list = getList();
+    list.forEach((todo) => {
+      if (todo.id.toString() === target.toString()) {
+        todo.description = newValue;
+      }
+    });
+    updateList(list);
+    inputField.disabled = true;
+  });
+  li.appendChild(checkbox);
+  li.appendChild(inputField);
+  li.appendChild(edit);
+  li.appendChild(remove);
+  li.appendChild(save);
   toDoList.appendChild(li);
 };
-
 export const clearAll = () => {
   const clearCheckedBtn = document.getElementById('clearChecked');
   clearCheckedBtn.addEventListener('click', () => {
@@ -93,15 +79,9 @@ export const clearAll = () => {
     window.location.reload();
   });
 };
-
 export const displayAll = () => {
   const list = getList();
   list.forEach((obj) => {
     addToDom(obj);
-    addEventCheckbox();
-    addEventToEdit();
-    addEventToRemove();
-    addEventToSave();
-    clearAll();
   });
 };
