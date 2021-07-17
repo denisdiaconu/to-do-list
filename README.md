@@ -27,7 +27,8 @@ To get a local copy up and running follow these simple example steps on the comm
   # Install all dev dependencies
 
   $ npm install
-
+    
+  $ npm start
 
 ```
 

@@ -1,8 +1,16 @@
-const handleGetData = () => {
-  const list = localStorage.getItem('todo');
-  if (list) {
-    return JSON.parse(list);
+export const setLocalStorage = () => {
+  if (!localStorage.getItem('todo')) {
+    localStorage.setItem('todo', '[]');
   }
-  return [];
+  if (!localStorage.getItem('count')) {
+    localStorage.setItem('count', '0');
+  }
 };
-export default handleGetData;
+
+export const getList = () => JSON.parse(localStorage.getItem('todo'));
+
+export const getCount = () => JSON.parse(localStorage.getItem('count'));
+
+export const updateList = (list) => localStorage.setItem('todo', JSON.stringify(list));
+
+export const updateCount = (count) => localStorage.setItem('count', JSON.stringify(count + 1));
